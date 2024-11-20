@@ -1,4 +1,10 @@
-import { Check, ChevronDown, ChevronUp } from "@tamagui/lucide-icons";
+import {
+  Check,
+  ChevronDown,
+  ChevronUp,
+  User2,
+  UserPlus,
+} from "@tamagui/lucide-icons";
 import {
   Adapt,
   Label,
@@ -31,10 +37,13 @@ const Select = ({
       onValueChange={onValueChange}
       disablePreventBodyScroll
     >
-      <TSelect.Trigger backgroundColor="#171717" justifyContent="center">
-        <Text color="#FFFFFF" fontWeight={700}>
-          {triggerText}
-        </Text>
+      <TSelect.Trigger
+        backgroundColor="#171717"
+        circular
+        justifyContent="center"
+        alignItems="center"
+      >
+        <UserPlus color="#FFF" size={18} />
       </TSelect.Trigger>
 
       <Adapt when="sm" platform="touch">
