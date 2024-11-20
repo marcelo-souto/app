@@ -10,7 +10,16 @@ const getById = async (id: string): Promise<Sale | undefined> => {
   return await api.get(`/sales/${id}`);
 };
 
-const create = async (data: any) => {
+type CreateSaleData = {
+  customerId: string;
+  saleTypeId: string;
+  items: {
+    id: string;
+    quantity: number;
+  }[];
+};
+
+const create = async (data: CreateSaleData) => {
   return await api.post("/sales", data);
 };
 
