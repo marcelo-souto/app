@@ -14,7 +14,9 @@ import { Sheet, SheetRef } from "@/components/ui/sheet/sheet";
 import { Button } from "@/components/ui/button/button";
 import { convertToBRL } from "@/utils/functions/convert-to-brl";
 import { useCart } from "@/hooks/cart/use-cart";
-import { Minus, Plus } from "@tamagui/lucide-icons";
+import { Minus, Plus, Tag } from "@tamagui/lucide-icons";
+import { FontAwesome } from "@expo/vector-icons";
+import { router } from "expo-router";
 
 export default function CreateSale() {
   const cart = useCart();
@@ -32,28 +34,47 @@ export default function CreateSale() {
     setCustomer(customer || null);
   };
 
+  const handleSubmitSale = () => {
+    createSaleRequest.mutate({
+      customerId: customer?.id || "",
+      items: cart.items.map((item) => ({
+        id: item.id,
+        quantity: item.quantity,
+      })),
+      saleTypeId: "cd374655-d64b-491c-b504-3d74e354f29d",
+    });
+  };
+
   const open = () => ref.current?.open();
   const close = () => ref.current?.close();
+
+  if (createSaleRequest.isSuccess) {
+    router.push("/sales");
+  }
 
   return (
     <Page>
       <ResourceHeader>
         <ResourceTitle>Novo Pedido</ResourceTitle>
-      </ResourceHeader>
-      <Select
-        value={customer?.id || ""}
-        onValueChange={onCustomerChange}
-        title="Clientes"
-        triggerText="Adicionar Cliente"
-      >
-        {customersRequest.data?.map((item, index) => (
-          <SelectItem index={index} key={item.name} value={item.id}>
-            {item.name}
-          </SelectItem>
-        ))}
-      </Select>
+        <XStack gap={4}>
+          <Select
+            value={customer?.id || ""}
+            onValueChange={onCustomerChange}
+            title="Clientes"
+            triggerText="Adicionar Cliente"
+          >
+            {customersRequest.data?.map((item, index) => (
+              <SelectItem index={index} key={item.name} value={item.id}>
+                {item.name}
+              </SelectItem>
+            ))}
+          </Select>
 
-      <Button onPress={open}>Adicionar Produto</Button>
+          <Button circular onPress={open}>
+            <Tag size={18} color="#FFFFFF" />
+          </Button>
+        </XStack>
+      </ResourceHeader>
 
       <Sheet ref={ref}>
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -144,13 +165,23 @@ export default function CreateSale() {
               </XStack>
             ))}
 
-            <Paragraph textAlign="right">Total: {convertToBRL(cart.total)}</Paragraph>
+            <Paragraph textAlign="right">
+              Total: {convertToBRL(cart.total)}
+            </Paragraph>
           </YStack>
         ) : (
           <Paragraph color="#888888" fontSize={14}>
             Nenhum produto adicionado ainda
           </Paragraph>
         )}
+        <Button
+          marginTop={32}
+          disabled={!customer || cart.items.length === 0}
+          isLoading={createSaleRequest.isPending}
+          onPress={handleSubmitSale}
+        >
+          Finalizar Pedido
+        </Button>
       </YStack>
     </Page>
   );
