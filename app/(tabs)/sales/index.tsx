@@ -12,17 +12,17 @@ import { Page } from "@/components/ui/page/page";
 import { ResourceHeader, ResourceTitle } from "@/components/resource/resource";
 import { Button } from "@/components/ui/button/button";
 import { router } from "expo-router";
+import { LoadingScreen } from "@/components/loading/loading";
 
 export default function Sales() {
   const { data, isLoading, isSuccess, isError } = useSaleGetAllRequest();
 
-  if (isLoading) return <Text>Loading...</Text>;
-
+  if (isLoading) return <LoadingScreen />;
   return (
     <Page>
       <ResourceHeader>
         <ResourceTitle>Pedidos</ResourceTitle>
-        <Button onPress={() => router.push("/sales/create")}>Cadastrar</Button>
+        <Button onPress={() => router.push("/sales/create")}>Novo Pedido</Button>
       </ResourceHeader>
       <SaleList>
         {data?.map((sale) => (
