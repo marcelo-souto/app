@@ -8,6 +8,7 @@ import {
 import { convertToBRL } from "@/utils/functions/convert-to-brl";
 import { router } from "expo-router";
 import { Product } from "@/types/types";
+import { useEffect } from "react";
 
 const productSchema = z.object({
   name: z.string().min(1, "Campo Obrigatório"),
@@ -53,9 +54,11 @@ const useProductForm = (data?: Product) => {
     createProduct.mutate(dataToBeSent);
   };
 
-  if (createProduct.isSuccess || updateProduct.isSuccess) {
-    router.push("/products");
-  }
+  useEffect(() => {
+    if (createProduct.isSuccess || updateProduct.isSuccess) {
+      router.push("/products");
+    }
+  }, [createProduct.isSuccess, updateProduct.isSuccess]);
 
   const deleteProductById = () => {};
 
