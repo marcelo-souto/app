@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Page } from "@/components/ui/page/page";
 import { H2, H3, Paragraph, ScrollView, Text, XStack, YStack } from "tamagui";
@@ -9,13 +9,12 @@ import { useCreateSaleRequest } from "@/hooks/sale/sale-request";
 
 import { ResourceHeader, ResourceTitle } from "@/components/resource/resource";
 import { Select, SelectItem } from "@/components/ui/select/select";
-import { Customer, Product } from "@/types/types";
+import { Customer } from "@/types/types";
 import { Sheet, SheetRef } from "@/components/ui/sheet/sheet";
 import { Button } from "@/components/ui/button/button";
 import { convertToBRL } from "@/utils/functions/convert-to-brl";
 import { useCart } from "@/hooks/cart/use-cart";
 import { Minus, Plus, Tag } from "@tamagui/lucide-icons";
-import { FontAwesome } from "@expo/vector-icons";
 import { router } from "expo-router";
 
 export default function CreateSale() {
@@ -51,6 +50,12 @@ export default function CreateSale() {
   if (createSaleRequest.isSuccess) {
     router.push("/sales");
   }
+
+  useEffect(() => {
+    if (createSaleRequest.isSuccess) {
+      router.push("/sales");
+    }
+  }, [createSaleRequest.isSuccess]);
 
   return (
     <Page>
