@@ -65,7 +65,10 @@ export const useCustomerDeleteRequest = () => {
 
     onSuccess: (_, id) => {
       queryClient.invalidateQueries({
-        queryKey: [["get-all-customers"], ["get-customer-by-id", id]],
+        queryKey: ["get-all-customers"],
+      });
+      queryClient.removeQueries({
+        queryKey: ["get-customer-by-id", id],
       });
     },
   });
