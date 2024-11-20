@@ -43,7 +43,8 @@ const Input = ({ value, onChange, onBlur, ...props }: InputProps) => {
       value={value}
       onBlur={onBlur}
       onChangeText={onChange}
-      backgroundColor="$colorTransparent"
+      backgroundColor="transparent"
+      height={36}
       {...props}
     />
   );
