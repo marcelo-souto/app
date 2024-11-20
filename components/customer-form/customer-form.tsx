@@ -1,9 +1,9 @@
 import { H1, H2, XStack, YStack, Text } from "tamagui";
 import { Input } from "@/components/ui/input/input";
-import { Customer } from "@/types/types";
+import { Customer, Sale } from "@/types/types";
 import { Button } from "@/components/ui/button/button";
 import { useCustomerForm } from "./use-customer-form";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import {
   Resource,
   ResourceControls,
@@ -20,9 +20,14 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form/form";
+import {
+  SaleList,
+  SaleListItem,
+  SaleListItemProducts,
+} from "../sale-list/sale-list";
 
 type CustomerFormProps = {
-  data?: Customer;
+  data?: Customer & { sales: Sale[] };
   mode: "create" | "edit";
 };
 
@@ -31,6 +36,10 @@ const CustomerForm = ({ data, mode = "create" }: CustomerFormProps) => {
     useCustomerForm(data);
   const [editEnabled, setEditEnabled] = useState(false);
   const handleEdit = () => setEditEnabled(!editEnabled);
+
+  useEffect(() => {
+    if (mode === "create") setEditEnabled(true);
+  }, [editEnabled]);
 
   return (
     <Fragment>
@@ -47,40 +56,42 @@ const CustomerForm = ({ data, mode = "create" }: CustomerFormProps) => {
         </ResourceHeader>
 
         <Form {...form}>
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Nome:</FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    placeholder="Insira o nome do produto."
-                    disabled={!editEnabled}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="address"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Nome:</FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    placeholder="Insira um endereço."
-                    disabled={!editEnabled}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <YStack>
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Nome:</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      placeholder="Insira o nome do produto."
+                      disabled={!editEnabled}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="address"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Endereço:</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      placeholder="Insira um endereço."
+                      disabled={!editEnabled}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </YStack>
         </Form>
 
         {(editEnabled || mode === "create") && (
@@ -91,6 +102,25 @@ const CustomerForm = ({ data, mode = "create" }: CustomerFormProps) => {
           >
             Enviar
           </Button>
+        )}
+
+        {mode === "edit" && (
+          <YStack>
+            <H2 fontSize={28} marginBottom={24} marginTop={24}>
+              Pedidos
+            </H2>
+            <SaleList>
+              {data?.sales.map((sale) => (
+                <SaleListItem
+                  key={sale.id}
+                  title={data.name}
+                  type={sale.saleType.name}
+                >
+                  <SaleListItemProducts products={sale.items} />
+                </SaleListItem>
+              ))}
+            </SaleList>
+          </YStack>
         )}
       </Resource>
     </Fragment>
