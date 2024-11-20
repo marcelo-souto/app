@@ -2,7 +2,7 @@ import { Input, NumericInput } from "@/components/ui/input/input";
 import { Product } from "@/types/types";
 import { Button } from "@/components/ui/button/button";
 import { useProductForm } from "./use-product-form";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import {
   Resource,
   ResourceControls,
@@ -31,6 +31,10 @@ const ProductForm = ({ data, mode = "create" }: ProductFormProps) => {
   const [editEnabled, setEditEnabled] = useState(false);
   const handleEdit = () => setEditEnabled(!editEnabled);
 
+  useEffect(() => {
+    if (mode === "create") setEditEnabled(true);
+  }, [editEnabled]);
+
   return (
     <Fragment>
       <Resource mode={mode}>
@@ -38,10 +42,6 @@ const ProductForm = ({ data, mode = "create" }: ProductFormProps) => {
           <ResourceTitle />
           <ResourceControls>
             <ResourceEditControl onPress={handleEdit} disabled={isLoading} />
-            <ResourceDeleteControl
-              onPress={deleteProductById}
-              disabled={isLoading}
-            />
           </ResourceControls>
         </ResourceHeader>
 
