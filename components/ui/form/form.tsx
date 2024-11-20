@@ -81,7 +81,7 @@ const FormLabel = React.forwardRef<
   React.ElementRef<typeof Label>,
   React.ComponentPropsWithoutRef<typeof Label>
 >(({ className, ...props }, ref) => {
-  return <Label ref={ref} {...props} />;
+  return <Label ref={ref} lineHeight={28} color="#3e3e3e" {...props} />;
 });
 
 FormLabel.displayName = "FormLabel";
