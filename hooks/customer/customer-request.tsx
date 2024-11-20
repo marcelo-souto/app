@@ -50,6 +50,12 @@ export const useCustomerUpdateRequest = () => {
       queryClient.invalidateQueries({
         queryKey: ["get-customer-by-id", id],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["get-all-customers"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["get-all-sales"],
+      });
     },
   });
 
