@@ -1,17 +1,20 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Tabs } from "expo-router";
+import { TouchableOpacity } from "react-native";
 
 export default function TabsLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: "blue",
+        tabBarActiveTintColor: "#2e2e2e",
+        tabBarInactiveTintColor: "#bfbfbf",
         headerShown: false,
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
+          href: null,
           title: "Home",
           tabBarIcon: ({ color }) => (
             <FontAwesome size={28} name="home" color={color} />
