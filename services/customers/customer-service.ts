@@ -1,12 +1,14 @@
 import { api } from "@/lib/axios/api";
-import { Customer } from "@/types/types";
+import { Customer, Sale } from "@/types/types";
 
 const getAll = async (): Promise<Customer[]> => {
   const response = await api.get("/customers");
   return response.data;
 };
 
-const getById = async (id: string): Promise<Customer | undefined> => {
+const getById = async (
+  id: string
+): Promise<(Customer & { sales: Sale[] }) | undefined> => {
   const reponse = await api.get(`/customers/${id}`);
   return reponse.data;
 };
