@@ -8,6 +8,7 @@ import {
 } from "@/hooks/customer/customer-request";
 import { router } from "expo-router";
 import { Customer } from "@/types/types";
+import { useEffect } from "react";
 
 const customerSchema = z.object({
   name: z.string().min(1, "Campo Obrigatório"),
@@ -51,13 +52,19 @@ const useCustomerForm = (data?: Customer) => {
     deleteCustomer.mutate(data!.id);
   };
 
-  if (
-    createCustomer.isSuccess ||
-    updateCustomer.isSuccess ||
-    deleteCustomer.isSuccess
-  ) {
-    router.push("/customers");
-  }
+  useEffect(() => {
+    if (
+      createCustomer.isSuccess ||
+      updateCustomer.isSuccess ||
+      deleteCustomer.isSuccess
+    ) {
+      router.push("/customers");
+    }
+  }, [
+    createCustomer.isSuccess,
+    updateCustomer.isSuccess,
+    deleteCustomer.isSuccess,
+  ]);
 
   const isLoading =
     createCustomer.isPending ||
