@@ -1,10 +1,6 @@
-import { SafeAreaView } from "react-native-safe-area-context";
-import { Text } from "tamagui";
+import { Redirect, router } from "expo-router";
+import { useEffect } from "react";
 
 export default function Index() {
-  return (
-    <SafeAreaView>
-      <Text>Home</Text>
-    </SafeAreaView>
-  );
+  return <Redirect href="/sales" />;
 }
