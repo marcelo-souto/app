@@ -109,17 +109,23 @@ const CustomerForm = ({ data, mode = "create" }: CustomerFormProps) => {
             <H2 fontSize={28} marginBottom={24} marginTop={24}>
               Pedidos
             </H2>
-            <SaleList>
-              {data?.sales.map((sale) => (
-                <SaleListItem
-                  key={sale.id}
-                  title={data.name}
-                  type={sale.saleType.name}
-                >
-                  <SaleListItemProducts products={sale.items} />
-                </SaleListItem>
-              ))}
-            </SaleList>
+            {data && data.sales.length > 0 ? (
+              <SaleList>
+                {data?.sales.map((sale) => (
+                  <SaleListItem
+                    key={sale.id}
+                    title={data.name}
+                    type={sale.saleType.name}
+                  >
+                    <SaleListItemProducts products={sale.items} />
+                  </SaleListItem>
+                ))}
+              </SaleList>
+            ) : (
+              <Text color="#848484" textAlign="center">
+                Nenhum pedido encontrado.
+              </Text>
+            )}
           </YStack>
         )}
       </Resource>
