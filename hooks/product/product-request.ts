@@ -51,6 +51,12 @@ export const useProductUpdateRequest = () => {
       queryClient.invalidateQueries({
         queryKey: ["get-product-by-id", id],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["get-all-products"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["get-all-sales"],
+      });
     },
     onError: (error) => {
       if (error instanceof AxiosError) {
