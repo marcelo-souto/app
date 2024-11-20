@@ -6,7 +6,7 @@ type PageProps = YStackProps;
 const Page = ({ children, ...props }: PageProps) => {
   return (
     <SafeAreaView>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <YStack padding={24} gap={16} {...props}>
           {children}
         </YStack>
