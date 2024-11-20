@@ -59,7 +59,7 @@ const ResourceHeader = ({ children, ...props }: ResourceHeaderProps) => {
     <XStack
       justifyContent="space-between"
       alignItems="center"
-      marginBottom={16}
+      marginBottom={0}
       {...props}
     >
       {children}
