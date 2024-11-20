@@ -9,11 +9,12 @@ import {
 } from "@/components/product-list/product-list";
 import { Page } from "@/components/ui/page/page";
 import { ResourceHeader, ResourceTitle } from "@/components/resource/resource";
+import { LoadingScreen } from "@/components/loading/loading";
 
 export default function Products() {
   const { data, isLoading, isSuccess, isError } = useProductGetAllRequest();
 
-  if (isLoading) return <Text>Loading...</Text>;
+  if (isLoading) return <LoadingScreen />;
 
   return (
     <Page>
