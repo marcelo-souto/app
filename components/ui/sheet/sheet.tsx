@@ -1,4 +1,4 @@
-import { ChevronDown } from "@tamagui/lucide-icons";
+import { ChevronDown } from "lucide-react-native";
 import React, { useImperativeHandle, useState } from "react";
 import { Button, Sheet as TSheet, SheetProps as TSheetProps } from "tamagui";
 
@@ -37,9 +37,7 @@ const Sheet = React.forwardRef<SheetRef, SheetProps>((props, ref) => {
       />
 
       <TSheet.Handle />
-      <TSheet.Frame padding={16}>
-        {props.children}
-      </TSheet.Frame>
+      <TSheet.Frame padding={16}>{props.children}</TSheet.Frame>
     </TSheet>
   );
 });
