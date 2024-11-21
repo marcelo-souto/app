@@ -14,8 +14,8 @@ import { Sheet, SheetRef } from "@/components/ui/sheet/sheet";
 import { Button } from "@/components/ui/button/button";
 import { convertToBRL } from "@/utils/functions/convert-to-brl";
 import { useCart } from "@/hooks/cart/use-cart";
-import { Minus, Plus, Tag } from "@tamagui/lucide-icons";
 import { router } from "expo-router";
+import { AntDesign, Entypo } from "@expo/vector-icons";
 
 export default function CreateSale() {
   const cart = useCart();
@@ -76,7 +76,7 @@ export default function CreateSale() {
           </Select>
 
           <Button circular onPress={open}>
-            <Tag size={18} color="#FFFFFF" />
+            <AntDesign name="tago" size={24} color="white" />
           </Button>
         </XStack>
       </ResourceHeader>
@@ -147,13 +147,13 @@ export default function CreateSale() {
                     size={24}
                     marginRight={8}
                     circular
-                    icon={<Minus />}
+                    icon={<Entypo name="minus" size={16} color="white" />}
                     onPress={() => {
                       cart.removeFromCart(item.id);
                     }}
                   />
 
-                  <Text fontSize={16} fontWeight={700}>
+                  <Text fontSize={16} fontWeight={700} width={16} textAlign="center">
                     {item.quantity}
                   </Text>
 
@@ -161,7 +161,7 @@ export default function CreateSale() {
                     size={24}
                     marginLeft={8}
                     circular
-                    icon={<Plus />}
+                    icon={<Entypo name="plus" size={16} color="white" />}
                     onPress={() => {
                       cart.addToCart(item);
                     }}
