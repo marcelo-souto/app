@@ -1,19 +1,10 @@
-import {
-  Check,
-  ChevronDown,
-  ChevronUp,
-  User2,
-  UserPlus,
-} from "@tamagui/lucide-icons";
+import { AntDesign, Entypo } from "@expo/vector-icons";
+
 import {
   Adapt,
-  Label,
   Select as TSelect,
   Sheet,
-  Text,
-  XStack,
   YStack,
-  getFontSize,
   SelectProps as TSelectProps,
   SelectItemProps as TSelectItemProps,
 } from "tamagui";
@@ -43,7 +34,7 @@ const Select = ({
         justifyContent="center"
         alignItems="center"
       >
-        <UserPlus color="#FFF" size={18} />
+        <AntDesign name="adduser" size={24} color="white" />
       </TSelect.Trigger>
 
       <Adapt when="sm" platform="touch">
@@ -75,7 +66,7 @@ const Select = ({
           height="$3"
         >
           <YStack zIndex={10}>
-            <ChevronUp size={20} />
+            <Entypo name="chevron-up" size={16} color="black" />
           </YStack>
         </TSelect.ScrollUpButton>
 
@@ -100,7 +91,7 @@ const Select = ({
           height="$3"
         >
           <YStack zIndex={10}>
-            <ChevronDown size={20} />
+            <Entypo name="chevron-down" size={16} color="black" />
           </YStack>
         </TSelect.ScrollDownButton>
       </TSelect.Content>
@@ -115,7 +106,7 @@ const SelectItem = ({ children, ...props }: SelectItemProps) => {
     <TSelect.Item {...props}>
       <TSelect.ItemText>{children}</TSelect.ItemText>
       <TSelect.ItemIndicator marginLeft="auto">
-        <Check size={16} />
+        <Entypo name="check" size={16} color="black" />
       </TSelect.ItemIndicator>
     </TSelect.Item>
   );
